@@ -37,3 +37,7 @@ class ErrorStartGameException(BaseException):
 
 class MissingApiKeyException(BaseException):
     pass
+
+
+class ErrorUpgradeBoostException(BaseException):
+    pass
