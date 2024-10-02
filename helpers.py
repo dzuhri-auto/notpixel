@@ -8,7 +8,7 @@ from better_proxy import Proxy
 from pyrogram import Client
 
 from bot.config import settings
-from bot.exceptions import MissingApiKeyException
+from bot.exceptions import MissingApiKeyException, MissingTelegramAPIException
 
 
 def get_session_names() -> list[str]:
@@ -28,7 +28,9 @@ def check_telegram_api():
     API_HASH = settings.API_HASH
 
     if not API_ID or not API_HASH:
-        raise ValueError("API_ID and API_HASH not found in the .env file.")
+        raise MissingTelegramAPIException(
+            "API_ID and API_HASH is missing, please check your .env file!"
+        )
 
 
 async def get_tg_clients() -> list[Client]:

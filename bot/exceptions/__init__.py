@@ -41,3 +41,7 @@ class MissingApiKeyException(BaseException):
 
 class ErrorUpgradeBoostException(BaseException):
     pass
+
+
+class MissingTelegramAPIException(BaseException):
+    pass
