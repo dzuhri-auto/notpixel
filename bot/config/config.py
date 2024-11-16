@@ -12,29 +12,25 @@ class Settings:
     API_ID = os.getenv("API_ID")
     API_HASH = os.getenv("API_HASH")
 
-    REF_LINK = os.getenv("REF_LINK")
-    ENABLE_AUTO_UPGRADE_BOOSTS = os.getenv("ENABLE_AUTO_UPGRADE_BOOSTS", "False")
-    ENABLE_AUTO_TASKS = os.getenv("ENABLE_AUTO_TASKS", "True")
+    REF_ID = os.getenv("REF_ID", "f441146600_s574068")
+    AUTO_UPGRADE_PAINT_REWARD = os.getenv("AUTO_UPGRADE_PAINT_REWARD", "True")
+    AUTO_UPGRADE_RECHARGE_SPEED = os.getenv("AUTO_UPGRADE_RECHARGE_SPEED", "True")
+    AUTO_UPGRADE_RECHARGE_ENERGY = os.getenv("AUTO_UPGRADE_RECHARGE_ENERGY", "True")
+    AUTO_TASK = os.getenv("AUTO_TASK", "True")
 
-    PAINT_REWARD_MAX = int(os.getenv("PAINT_REWARD_MAX", "7"))
-    ENERGY_LIMIT_MAX = int(os.getenv("ENERGY_LIMIT_MAX", "6"))
-    RE_CHARGE_SPEED_MAX = int(os.getenv("RE_CHARGE_SPEED_MAX", "11"))
+    USE_PUMPKIN_BOMBS = os.getenv("USE_PUMPKIN_BOMBS", "True")
 
-    BOOSTS_BLACK_LIST = json.loads(
-        os.getenv(
-            "BOOSTS_BLACK_LIST",
-            '["INVITE_FRIENDS", "TON_TRANSACTION", "BOOST_CHANNEL", "ACTIVITY_CHALLENGE", "CONNECT_WALLET"]',
-        )
-    )
-    TASKS_TODO_LIST = json.loads(
-        os.getenv(
-            "TASKS_TODO_LIST",
-            '["x:notcoin", "x:notpixel", "paint20pixels", "leagueBonusSilver", "invite3frens", "leagueBonusGold", "channel:notpixel_channel", "channel:notcoin", "premium"]',
-        )
-    )
+    USE_CUSTOM_TEMPLATE = os.getenv("USE_CUSTOM_TEMPLATE", "False")
+    CUSTOM_TEMPLATE_ID = int(os.getenv("CUSTOM_TEMPLATE_ID", "1006282664"))
+    PAINT_COLOR = (os.getenv("PAINT_COLOR", "000000"))
+    USE_RANDOM_TEMPLATES = os.getenv("USE_RANDOM_TEMPLATES", "True")
+    RANDOM_TEMPLATES_ID = json.loads(os.getenv("RANDOM_TEMPLATES_ID", "[917981974, 7319890725, 1972552043]"))
+
+    NIGHT_MODE = os.getenv("NIGHT_MODE", "False")
+    SLEEP_TIME = json.loads(os.getenv("SLEEP_TIME", "[0, 7]")) # your time zone 
 
     DELAY_EACH_ACCOUNT = json.loads(os.getenv("DELAY_EACH_ACCOUNT", "[10, 15]"))
-    DELAY_ALL_ACCOUNT = json.loads(os.getenv("DELAY_ALL_ACCOUNT", "[3600, 5000]"))
+    SLEEP_TIME_BETWEEN_EACH_ROUND = json.loads(os.getenv("SLEEP_TIME_BETWEEN_EACH_ROUND", "[1000, 1500]"))
     USE_PROXY_FROM_FILE = os.getenv("USE_PROXY_FROM_FILE", "False")
 
 

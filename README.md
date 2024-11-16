@@ -13,13 +13,8 @@ NOT PIXEL Telegram Mini App Bot Auto
 - Auto Upgrade Boost
 - Auto Clear Tasks 🔥🔥🔥 *(not all missions)*
 
-## Supported 2 Mode
-
-- Using Session
-- Using Query ID
-
 > [!WARNING]
-> *When using `session mode`, please make sure to only add a Telegram account with an ID number below `61xxxxx`. You can check your ID by using `@userinfobot`. If your ID is higher than this, your account will be automatically banned.*
+> *When using `session mode`, please make sure to only add a Telegram account with an ID number below `65xxxxx`. You can check your ID by using `@userinfobot`. If your ID is higher than this, your account will be automatically banned.*
 
 ## Supported Operating Systems
 
@@ -40,19 +35,25 @@ Before setting up the bot, ensure the following are installed:
 
 All the configurations can be set in the .env file.
 
-| Name                       | Description                                  | Default       |
-| -------------------------- | -------------------------------------------- | ------------- |
-| LICENSE_KEY                | Dzuhri Auto License Key                      |               |
-| API_ID / API_HASH          | API and API HASH from telegram account       |               |
-| REF_LINK                   | Put your refferal link here                  | my ref link   |
-| ENABLE_AUTO_UPGRADE_BOOSTS | Enable auto upgrader boosts                  | False         |
-| ENABLE_AUTO_TASKS          | Enable auto upgrader boosts                  | True          |
-| PAINT_REWARD_MAX           | Max level of paint boost                     | 7             |
-| ENERGY_LIMIT_MAX           | Max level of energy limit boost              | 6             |
-| RE_CHARGE_SPEED_MAX        | Max level of recharge speed boost            | 11            |
-| DELAY_EACH_ACCOUNT         | Delay each account in seconds                | [10, 15]      |
-| DELAY_ALL_ACCOUNT          | Delay after all account completed in seconds | [7200, 10800] |
-| USE_PROXY_FROM_FILE        | For using proxy                              | False         |
+| Name                          | Description                                 | Default                             |
+| ----------------------------- | ------------------------------------------- | ----------------------------------- |
+| LICENSE_KEY                   | Dzuhri Auto License Key                     |                                     |
+| API_ID / API_HASH             | API and API HASH from telegram account      |                                     |
+| REF_LINK                      | Put your refferal link here                 | my ref link                         |
+| AUTO_UPGRADE_PAINT_REWARD     | Enable auto upgrader paint boosts           | True                                |
+| AUTO_UPGRADE_RECHARGE_SPEED   | Enable auto upgrader recharge speed boosts  | True                                |
+| AUTO_UPGRADE_RECHARGE_ENERGY  | Enable auto upgrader recharge energy boosts | True                                |
+| AUTO_TASK                     | Enable auto complete tasks                  | True                                |
+| USE_CUSTOM_TEMPLATE           | Use costum template                         | False                               |
+| CUSTOM_TEMPLATE_ID            | id of custom template                       | 1006282664                          |
+| PAINT_COLOR                   | paint color                                 | 000000                              |
+| USE_RANDOM_TEMPLATES          | enable use random templates                 | True                                |
+| RANDOM_TEMPLATES_ID           | id of random templates                      | [917981974, 7319890725, 1972552043] |
+| NIGHT_MODE                    | night mode                                  | False                               |
+| SLEEP_TIME                    | sleep time                                  | [0, 7]                              |
+| DELAY_EACH_ACCOUNT            | delay between each accounts in seconds      | [10, 15]                            |
+| SLEEP_TIME_BETWEEN_EACH_ROUND | delay between each iteration in seconds     | [1000, 1500]                        |
+| USE_PROXY_FROM_FILE           | enable using proxy                          | False                               |
 
 ## How to Obtain API ID and API HASH
 

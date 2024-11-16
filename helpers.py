@@ -5,10 +5,34 @@ from datetime import datetime, timedelta, timezone
 from urllib.parse import unquote
 
 from better_proxy import Proxy
-from pyrogram import Client
 
 from bot.config import settings
-from bot.exceptions import MissingApiKeyException, MissingTelegramAPIException
+from bot.exceptions import MissingTelegramAPIException
+
+
+def calculate_real_number(number):
+    return number / 1000000000
+
+
+def update_or_add_dict(list_of_dicts, key, key_value, new_data):
+    """
+    Updates a dictionary in a list of dictionaries if the key exists, otherwise adds a new dictionary.
+
+    :param list_of_dicts: List of dictionaries to update or add to.
+    :param key: The key to check for existence in each dictionary.
+    :param key_value: The value of the key to match.
+    :param new_data: The data to update or add to the dictionary.
+    """
+    for dictionary in list_of_dicts:
+        if dictionary.get(key) == key_value and dictionary.get("upgrade_lvl") < new_data.get(
+            "upgrade_lvl"
+        ):
+            dictionary.update(new_data)
+            return
+    # If the key_value is not found, add a new dictionary
+    # new_dict = {key: key_value}
+    # new_dict.update(new_data)
+    list_of_dicts.append(new_data)
 
 
 def get_session_names() -> list[str]:
@@ -16,11 +40,6 @@ def get_session_names() -> list[str]:
     session_names = [os.path.splitext(os.path.basename(file))[0] for file in session_names]
 
     return session_names
-
-
-def check_license_key():
-    if not settings.LICENSE_KEY:
-        raise MissingApiKeyException("LICENSE KEY is missing, please check your .env file!")
 
 
 def check_telegram_api():
@@ -31,54 +50,6 @@ def check_telegram_api():
         raise MissingTelegramAPIException(
             "API_ID and API_HASH is missing, please check your .env file!"
         )
-
-
-async def get_tg_clients() -> list[Client]:
-    # global tg_clients
-
-    tg_clients = []
-    session_names = get_session_names()
-
-    # if not session_names:
-    #     raise FileNotFoundError("Not found session files")
-
-    # if not settings.API_ID or not settings.API_HASH:
-    #     raise ValueError("API_ID and API_HASH not found in the .env file.")
-    if session_names:
-        tg_clients = [
-            Client(
-                name=session_name,
-                api_id=settings.API_ID,
-                api_hash=settings.API_HASH,
-                workdir="sessions/",
-                plugins=dict(root="bot/plugins"),
-            )
-            for session_name in session_names
-        ]
-
-    return tg_clients
-
-
-def create_menus():
-    menus = [
-        "Start bot using session",
-        "Start bot using query",
-        "Add session",
-        "Add query",
-        "Delete session",
-        "Delete query",
-    ]
-    print("Please choose menu: ")
-    print("")
-    total_menu = 0
-    for idx, menu in enumerate(menus):
-        num = idx + 1
-        total_menu += 1
-        print(f"{num}. {menu}")
-    print(
-        "========================================================================================"
-    )
-    return total_menu
 
 
 def get_proxies() -> list[Proxy]:
@@ -122,9 +93,9 @@ def format_duration(seconds):
 
 def mapping_role_color(role):
     if role == "admin":
-        role = f"<lg>{role}</lg>"
+        role = f"[cyan]{role}[/cyan]"
     elif role == "premium":
-        role = f"<lc>{role}</lc>"
+        role = f"[magenta]{role}[/magenta]"
 
     return role
 
@@ -187,3 +158,45 @@ class bcolors:
     ENDC = "\033[0m"
     BOLD = "\033[1m"
     UNDERLINE = "\033[4m"
+
+
+def format_hunt_reward(hunt_reward={}):
+    message = ""
+    egg_type = hunt_reward.get("egg_type")
+    worm_type = hunt_reward.get("worm_type")
+    seed_amount = hunt_reward.get("seed_amount")
+    if egg_type:
+        message = f"Egg: {egg_type}, "
+
+    if worm_type:
+        message = message + f"Worm: {colorize_worm_by_rarity(worm_type)}, "
+
+    if seed_amount:
+        message = message + f"Seed: <lg>{calculate_real_number(seed_amount)}</lg>"
+    return message
+
+
+def claim_hour_by_storage(storage_level):
+    if storage_level == 0:
+        return 2
+    elif storage_level == 1:
+        return 3
+    elif storage_level == 2:
+        return 4
+    elif storage_level == 3:
+        return 6
+    elif storage_level == 4:
+        return 12
+    else:
+        return 24
+
+
+
+def populate_not_completed_tasks(task_datas=[]):
+    not_completed_tasks = []
+    for task in task_datas:
+        if task.get("type") in ["sign-in"]:
+            continue
+        if not task.get("task_user") or not task.get("task_user", {}).get("completed"):
+            not_completed_tasks.append(task)
+    return not_completed_tasks

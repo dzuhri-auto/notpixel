@@ -45,3 +45,6 @@ class ErrorUpgradeBoostException(BaseException):
 
 class MissingTelegramAPIException(BaseException):
     pass
+
+class ServerApiChangedException(BaseException):
+    pass
